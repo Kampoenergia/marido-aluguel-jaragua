@@ -474,9 +474,16 @@
     document.querySelectorAll('.whatsapp-link').forEach((link) => {
       link.addEventListener('click', (event) => {
         event.preventDefault();
-        // Evento pronto para Google Tag Manager / Google Ads.
+        // Evento de conversão: clique no WhatsApp.
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'whatsapp_click', destination: 'whatsapp' });
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-17289607771/vhLaCJ7a0PMcENv0qbRA',
+            'value': 1.0,
+            'currency': 'BRL'
+          });
+        }
         window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`, '_blank', 'noopener,noreferrer');
       });
     });
